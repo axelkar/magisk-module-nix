@@ -14,10 +14,28 @@ Install [Nix](https://nixos.org/) with Nix flakes, and run these commands:
 
 ```console
 $ nix flake new my-module -t github:axelkar/magisk-module-nix
+
 # magisk-module-nix template
 
 Run `nix build .#magiskModule.installer` to get started
+
+$ cd my-module
+$ nix build .#magiskModule.installer
+$ zipinfo -1 result
+META-INF/
+META-INF/com/
+META-INF/com/google/
+META-INF/com/google/android/
+META-INF/com/google/android/update-binary
+META-INF/com/google/android/updater-script
+module.prop
+system/
+system/example
+webroot/
+webroot/index.html
 ```
+
+You can start off with just one file: [`flake.nix`](template/flake.nix).
 
 ## Example
 
@@ -50,7 +68,7 @@ let
   };
 in
 {
-  # Directory containing
+  # Directory containing the module
   inherit magiskModule;
 
   # Magisk module installer ZIP file as defined here:
@@ -61,20 +79,4 @@ in
   # https://topjohnwu.github.io/Magisk/guides.html#moduleprop
   updateJSON = magiskModule.magiskUpdateJSON;
 }
-```
-
-```console
-$ nix build .#magiskModule.installer
-$ zipinfo -1 result
-META-INF/
-META-INF/com/
-META-INF/com/google/
-META-INF/com/google/android/
-META-INF/com/google/android/update-binary
-META-INF/com/google/android/updater-script
-module.prop
-system/
-system/example
-webroot/
-webroot/index.html
 ```
