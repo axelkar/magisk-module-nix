@@ -116,7 +116,7 @@ lib.extendMkDerivation {
 
           # Hydra support
           mkdir -p $out/nix-support
-          echo 'file binary-dist $out/installer-zip/${finalAttrs.finalPackage.name}.zip' >> $out/nix-support/hydra-build-products
+          echo "file binary-dist $out/installer-zip/${finalAttrs.finalPackage.name}.zip" >> $out/nix-support/hydra-build-products
         ''
       );
 
