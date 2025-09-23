@@ -80,3 +80,65 @@ in
   updateJSON = magiskModule.magiskUpdateJSON;
 }
 ```
+
+## API
+
+### `packageMagiskModule`
+
+#### Arguments
+
+`pkgs`: [Nixpkgs](https://github.com/NixOS/nixpkgs) instance. Example: `import <nixpkgs> { }`
+
+<dl>
+  <dt><code>modid</code></dt>
+  <dd>Magisk module ID
+
+  Example: `"my-module"`
+
+  Must match the regular expression `^[a-zA-Z][a-zA-Z0-9._-]+$`</dd>
+  <dt><code>prettyName</code></dt>
+  <dd>Name of the module, shown in the Magisk app
+
+  Example: `"My Module"`</dd>
+  <dt><code>version</code></dt>
+  <dd>Version of the module
+
+  Example: `"1.2.3"`</dd>
+  <dt><code>versionCode</code></dt>
+  <dd>32-bit integer representation of the module's version
+
+  Example: `0000010203`</dd>
+  <dt><code>author</code></dt>
+  <dd>Name of the author, shown in the Magisk app</dd>
+  <dt><code>description</code></dt>
+  <dd>Description of the module, shown in the Magisk app</dd>
+  <dt><code>updateJSONUrl</code> (Optional)</dt>
+  <dd>URL of a <a href="https://topjohnwu.github.io/Magisk/guides.html#moduleprop">Magisk update JSON</a> document showing where to get the latest version</dd>
+  <dt><code>src</code> (Optional)</dt>
+  <dd>Directory to copy into the module's root</dd>
+  <dt><code>extraCommands</code> (Optional)</dt>
+  <dd>Bash script for adding additional files into the module
+
+  Example: <code>"cp -r ${webui} $out/webroot"</code></dd>
+  <dt><code>gitHubOwnerRepo</code></dt>
+  <dd>GitHub `owner/repo` pair. Used for <code>gitHubCompatibleReleasesUrl</code></dd>
+  <dt><code>gitHubCompatibleReleasesUrl</code></dt>
+  <dd>GitHub-compatible releases URL. Also works with Forgejo and Gitea. Used for <code>zipUrl</code> and <code>changelogUrl</code></dd>
+  <dt><code>gitTag</code></dt>
+  <dd>Git Tag. Used for <code>zipUrl</code> and <code>changelogUrl</code></dd>
+  <dt><code>zipUrl</code></dt>
+  <dd>URL to an installer ZIP. Default assumes filename `${modid}-${version}.zip`. Used for <code>magiskUpdateJSON</code> attribute</dd>
+  <dt><code>changelogUrl</code></dt>
+  <dd>URL to a changelog. Used for <code>magiskUpdateJSON</code> attribute</dd>
+</dl>
+
+#### Return value
+
+Derivation for the Magisk module, with the following passthru-attributes:
+
+<dl>
+  <dt><code>magiskUpdateJSON</code></dt>
+  <dd><a href="https://topjohnwu.github.io/Magisk/guides.html#moduleprop">Magisk update JSON</a> string</dd>
+  <dt><code>installer</code></dt>
+  <dd><a href="https://topjohnwu.github.io/Magisk/guides.html#magisk-module-installer">Magisk module installer</a> ZIP</dd>
+</dl>
