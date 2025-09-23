@@ -21,7 +21,7 @@ Run `nix build .#magiskModule.installer` to get started
 
 $ cd my-module
 $ nix build .#magiskModule.installer
-$ zipinfo -1 result
+$ zipinfo -1 result/installer-zip/my-module-25.09.zip
 META-INF/
 META-INF/com/
 META-INF/com/google/
@@ -36,6 +36,8 @@ webroot/index.html
 ```
 
 You can start off with just one file: [`flake.nix`](template/flake.nix).
+
+See [ZygiskFrida-webui](https://github.com/axelkar/ZygiskFrida-webui) for an example of GitHub Actions integration.
 
 ## Example
 

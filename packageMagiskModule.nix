@@ -94,7 +94,7 @@ lib.extendMkDerivation {
 
       # Magisk module installer ZIP file as defined here:
       # https://topjohnwu.github.io/Magisk/guides.html#magisk-module-installer
-      passthru.installer = runCommand "${finalAttrs.finalPackage.name}.zip" { } (
+      passthru.installer = runCommand "${finalAttrs.finalPackage.name}-installer-zip" { } (
         let
           moduleInstaller = fetchurl {
             url = "https://raw.githubusercontent.com/topjohnwu/Magisk/8b7d1ffcdd64dc9c06de7f135ff312439e560eed/scripts/module_installer.sh";
@@ -109,9 +109,14 @@ lib.extendMkDerivation {
           install -D ${moduleInstaller} META-INF/com/google/android/update-binary
           echo '#MAGISK' > META-INF/com/google/android/updater-script
 
-          ${lib.getExe zip} -Xr $out .
+          mkdir -p $out/installer-zip
+          ${lib.getExe zip} -Xr $out/installer-zip/${finalAttrs.finalPackage.name}.zip .
           # Strip nondeterminism!
           ${lib.getExe strip-nondeterminism} $out
+
+          # Hydra support
+          mkdir -p $out/nix-support
+          echo 'file binary-dist $out/installer-zip/${finalAttrs.finalPackage.name}.zip' >> $out/nix-support/hydra-build-products
         ''
       );
 
