@@ -110,13 +110,15 @@ lib.extendMkDerivation {
           echo '#MAGISK' > META-INF/com/google/android/updater-script
 
           mkdir -p $out/installer-zip
-          ${lib.getExe zip} -Xr $out/installer-zip/${finalAttrs.finalPackage.name}.zip .
+          outZip=$out/installer-zip/${finalAttrs.finalPackage.name}.zip
+
+          ${lib.getExe zip} -Xr $outZip .
           # Strip nondeterminism!
-          ${lib.getExe strip-nondeterminism} $out
+          ${lib.getExe strip-nondeterminism} $outZip
 
           # Hydra support
           mkdir -p $out/nix-support
-          echo "file binary-dist $out/installer-zip/${finalAttrs.finalPackage.name}.zip" >> $out/nix-support/hydra-build-products
+          echo "file binary-dist $outZip" >> $out/nix-support/hydra-build-products
         ''
       );
 
