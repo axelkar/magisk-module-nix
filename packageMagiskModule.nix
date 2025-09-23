@@ -18,7 +18,7 @@ lib.extendMkDerivation {
     "description"
     "updateJSONUrl"
     "meta"
-    "installCommands"
+    "extraCommands"
     "gitHubOwnerRepo"
     "gitHubCompatibleReleasesUrl"
     "gitTag"
@@ -37,7 +37,7 @@ lib.extendMkDerivation {
       description,
       updateJSONUrl ? null,
       meta ? { },
-      installCommands ? "",
+      extraCommands ? "",
       gitHubOwnerRepo,
       gitHubCompatibleReleasesUrl ? "https://github.com/${gitHubOwnerRepo}/releases",
       gitTag ? "v${version}",
@@ -45,6 +45,9 @@ lib.extendMkDerivation {
       changelogUrl ? "${gitHubCompatibleReleasesUrl}/tag/${gitTag}",
       ...
     }:
+
+    let versionCode' = builtins.toString versionCode; in
+    let versionCode = versionCode'; in
 
     # https://topjohnwu.github.io/Magisk/guides.html#moduleprop
     assert
@@ -79,7 +82,7 @@ lib.extendMkDerivation {
 
         printf "%s" "$moduleProp" > module.prop
 
-        ${installCommands}
+        ${extraCommands}
       '';
 
       # Magisk update JSON as defined here:

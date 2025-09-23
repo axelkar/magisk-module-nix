@@ -58,8 +58,8 @@ let
     # Will copy e.g. `./module/system` to `system` in the ZIP file
     src = ./module;
 
-    # Link in from another derivation
-    installCommands = ''
+    # Copy from another derivation
+    extraCommands = ''
       cp -r ${webui} $out/webroot
     '';
 
