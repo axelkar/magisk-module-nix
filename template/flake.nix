@@ -55,6 +55,8 @@
             # For update JSON
             gitHubOwnerRepo = "johndoe/my-module";
           };
+
+          default = magiskModule.installer;
         }
       );
     };

@@ -10,7 +10,7 @@
 
 ## Try it
 
-Install [Nix](https://nixos.org/) with Nix flakes, and run these commands:
+Install [Nix](https://nixos.org/) with Nix flakes and run these commands:
 
 ```console
 $ nix flake new my-module -t github:axelkar/magisk-module-nix
