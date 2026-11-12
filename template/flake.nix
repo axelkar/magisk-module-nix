@@ -2,7 +2,7 @@
   description = "Magisk module template using magisk-module-nix";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
     magisk-module-nix.url = "github:axelkar/magisk-module-nix";
   };
 
